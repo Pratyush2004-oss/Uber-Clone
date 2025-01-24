@@ -54,7 +54,7 @@ export const login = async (req, res, next) => {
         if (!user) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid User Credentials"
+                message: "Invalid Credentials"
             });
         }
 
@@ -62,7 +62,7 @@ export const login = async (req, res, next) => {
         if (!isMatch) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid User Credentials"
+                message: "Invalid Credentials"
             });
         }
 

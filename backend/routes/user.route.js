@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { login, logout, profile, register } from "../controllers/user.controllers.js";
 import { body } from "express-validator";
-import { AuthentatedUser } from "../middleware/auth.middleware.js";
+import { AuthentateUser } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
@@ -18,7 +18,7 @@ const ValidationRule = [
 
 router.post('/register', ValidationRuleRegister, register);
 router.post('/login', ValidationRule, login);
-router.get('/logout', AuthentatedUser, logout);
-router.get('/profile', AuthentatedUser, profile);
+router.get('/logout', AuthentateUser, logout);
+router.get('/profile', AuthentateUser, profile);
 
 export default router;

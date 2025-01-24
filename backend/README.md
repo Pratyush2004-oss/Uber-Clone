@@ -481,3 +481,96 @@ Example:
       "message": "An error occurred while logging in the captain"
   }
   ```
+
+# Captain Profile Endpoint
+
+## Endpoint
+`GET /captain/profile`
+
+## Description
+This endpoint is used to get the profile information of the authenticated captain.
+
+## Responses
+
+### Success
+- **Status Code:** 200 OK
+- **Response Body:**
+  ```json
+  {
+      "captain": {
+          "_id": "captain_id",
+          "name": {
+              "firstName": "Jane",
+              "lastName": "Doe"
+          },
+          "email": "jane.doe@example.com",
+          "vehicle": {
+              "plate": "ABC123",
+              "capacity": 4,
+              "color": "Red",
+              "vehicleType": "car"
+          },
+          // ...other captain fields...
+      }
+  }
+  ```
+
+### Unauthorized
+- **Status Code:** 401 Unauthorized
+- **Response Body:**
+  ```json
+  {
+      "success": false,
+      "message": "Authentication required"
+  }
+  ```
+
+### Server Error
+- **Status Code:** 500 Internal Server Error
+- **Response Body:**
+  ```json
+  {
+      "success": false,
+      "message": "An error occurred while fetching the captain profile"
+  }
+  ```
+
+# Captain Logout Endpoint
+
+## Endpoint
+`GET /captain/logout`
+
+## Description
+This endpoint is used to log out the authenticated captain.
+
+## Responses
+
+### Success
+- **Status Code:** 200 OK
+- **Response Body:**
+  ```json
+  {
+      "success": true,
+      "message": "Captain logged out successfully"
+  }
+  ```
+
+### Unauthorized
+- **Status Code:** 401 Unauthorized
+- **Response Body:**
+  ```json
+  {
+      "success": false,
+      "message": "Authentication required"
+  }
+  ```
+
+### Server Error
+- **Status Code:** 500 Internal Server Error
+- **Response Body:**
+  ```json
+  {
+      "success": false,
+      "message": "An error occurred while logging out the captain"
+  }
+  ```

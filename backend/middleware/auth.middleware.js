@@ -1,8 +1,9 @@
 import BlacklistTokenModel from "../models/blacklistToken.model.js";
+import CaptainModel from "../models/captains.model.js";
 import UserModel from "../models/user.models.js";
 import jwt from "jsonwebtoken";
 
-export const AuthentatedUser = async (req, res, next) => {
+export const AuthentateUser = async (req, res, next) => {
     try {
         const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
         if(!token){
@@ -34,3 +35,35 @@ export const AuthentatedUser = async (req, res, next) => {
         next(error);
     }
 }   
+
+export const AuthentateCaptain = async (req, res, next) => {
+    try {
+        const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+        if(!token){
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized Access"
+            });
+        }
+        const isBlacklisted = await BlacklistTokenModel.findOne({ token });
+        if (isBlacklisted) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized Access"
+            });
+        }
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        const captain = await CaptainModel.findById(decoded._id);
+        if(!captain){
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized Access"
+            });
+        }
+        req.captain = captain;
+        return next();
+    } catch (error) {
+        console.log("Error in Authenticated Captain function : " + error.message);
+        next(error);
+    }
+}

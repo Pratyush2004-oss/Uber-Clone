@@ -1,6 +1,7 @@
 import Router from "express";
-import { login, register } from "../controllers/captain.controller.js";
+import { login, logout, profile, register } from "../controllers/captain.controller.js";
 import { body } from "express-validator";
+import { AuthentateCaptain } from "../middleware/auth.middleware.js";
 
 const router = Router();
 const RegistrationValidationRule = [
@@ -19,6 +20,8 @@ const ValidationRule = [
 ];
 
 router.post('/register', RegistrationValidationRule, register);
-router.post('/login', login);
+router.post('/login', ValidationRule, login);
+router.get('/logout',AuthentateCaptain, logout);
+router.get('/profile', AuthentateCaptain, profile);
 
 export default router;
