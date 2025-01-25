@@ -9,14 +9,14 @@ export const AuthentateUser = async (req, res, next) => {
         if(!token){
             return res.status(401).json({
                 success: false,
-                message: "Unauthorized Access"
+                message: "Unauthorized Access - No Token provided"
             });
         }
         const isBlacklisted = await BlacklistTokenModel.findOne({ token });
         if (isBlacklisted) {
             return res.status(401).json({
                 success: false,
-                message: "Unauthorized Access"
+                message: "Unauthorized Access - Invalid Token"
             });
         }
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
@@ -24,7 +24,7 @@ export const AuthentateUser = async (req, res, next) => {
         if(!user){
             return res.status(401).json({
                 success: false,
-                message: "Unauthorized Access"
+                message: "Unauthorized Access - Invalid User"
             });
         }
         req.user = user;
@@ -42,14 +42,14 @@ export const AuthentateCaptain = async (req, res, next) => {
         if(!token){
             return res.status(401).json({
                 success: false,
-                message: "Unauthorized Access"
+                message: "Unauthorized Access - No Token provided"
             });
         }
         const isBlacklisted = await BlacklistTokenModel.findOne({ token });
         if (isBlacklisted) {
             return res.status(401).json({
                 success: false,
-                message: "Unauthorized Access"
+                message: "Unauthorized Access - Invalid Token"
             });
         }
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
@@ -57,7 +57,7 @@ export const AuthentateCaptain = async (req, res, next) => {
         if(!captain){
             return res.status(401).json({
                 success: false,
-                message: "Unauthorized Access"
+                message: "Unauthorized Access - Invalid Captain"
             });
         }
         req.captain = captain;

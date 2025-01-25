@@ -29,8 +29,7 @@ export const register = async (req, res, next) => {
         });
 
         const token = user.generateAuthToken();
-        res.cookie('token', token);
-        res.status(201).json({
+        res.cookie('token', token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).status(201).json({
             success: true,
             user,
             token,
@@ -67,8 +66,7 @@ export const login = async (req, res, next) => {
         }
 
         const token = user.generateAuthToken();
-        res.cookie('token', token);
-        res.status(200).json({
+        res.status(200).cookie('token', token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).json({
             success: true,
             user,
             token,

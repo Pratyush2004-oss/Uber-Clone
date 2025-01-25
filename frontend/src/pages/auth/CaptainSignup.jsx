@@ -11,8 +11,19 @@ const CaptainSignup = () => {
     password: ''
   })
 
-  const handleSignup = () => {
-    console.log(input);
+  const [userData, setuserData] = useState({});
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+    setuserData({
+      name:{
+        firstName: input.firstName,
+        lastName: input.lastName
+      },
+      email: input.email,
+      password: input.password
+    })
+    console.log(userData);
 
     setInput({
       firstName: '',
@@ -25,8 +36,8 @@ const CaptainSignup = () => {
     <div className='bg-white/50 p-7 flex flex-col justify-between min-h-screen'>
       <div>
         <Header />
-        <div className='my-5'>
-          <h1 className='font-bold text-2xl text-center my-5'>Sign Up as Captain</h1>
+        <h1 className='font-bold text-2xl text-center my-5'>Sign Up as Captain</h1>
+        <form className='my-5' onSubmit={(e) => handleSignup(e)}>
           <div className='grid grid-cols-2 gap-3'>
             <div className='mb-5'>
               <h3 className='font-medium text-xl'>First Name</h3>
@@ -45,8 +56,8 @@ const CaptainSignup = () => {
             <h3 className='font-medium text-xl'>Password</h3>
             <input type='password' value={input.password} onChange={(e) => setInput({ ...input, password: e.target.value })} placeholder='password' required className='input w-full my-2 input-bordered bg-[#eeeeee]' />
           </div>
-          <button className='btn w-full mt-5 bg-black text-white ' onClick={handleSignup}>Create Account </button>
-        </div>
+          <button className='btn w-full mt-5 bg-black text-white ' type='submit'>Create Account </button>
+        </form>
         <p className='text-center' >Already have an account? <Link to={'/user/login'} className='underline text-blue-500 font-bold'>Sign in</Link></p>
         <div className="divider">X</div>
       </div>
