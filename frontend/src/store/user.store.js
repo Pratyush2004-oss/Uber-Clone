@@ -18,6 +18,7 @@ export const useUserStore = create((set) => ({
 
             if (response.data.success) {
                 set({ user: response.data.user, isAuthenticated: true });
+                localStorage.setItem('Ubertoken', response.data.token);
                 return response.data;
             }
             else {
@@ -38,9 +39,10 @@ export const useUserStore = create((set) => ({
 
             if (response.data.success) {
                 set({ user: response.data.user, isAuthenticated: true });
+                localStorage.setItem('Ubertoken', response.data.token);
                 return response.data;
             }
-            else{
+            else {
                 set({ error: response.data.message });
                 toast.error(response.data.message);
             }
@@ -54,11 +56,17 @@ export const useUserStore = create((set) => ({
     // logout user from the application
     logout: async () => {
         try {
+            const token = localStorage.getItem('Ubertoken');
             set({ error: null });
-            const response = await axios.get(`${API_URL}/user/logout`);
+            const response = await axios.get(`${API_URL}/user/logout`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
 
             if (response.data.success) {
                 set({ user: null, isAuthenticated: false });
+                localStorage.removeItem('Ubertoken');
                 return response.data;
             }
             else {
@@ -75,14 +83,24 @@ export const useUserStore = create((set) => ({
     checkUser: async () => {
         set({ error: null, isCheckingUser: true, isAuthenticated: false });
         try {
-            const response = await axios.get(`${API_URL}/user/profile`);
-            console.log(response)
+            const token = localStorage.getItem('Ubertoken');
+
+            if (!token) {
+                set({ isCheckingUser: false });
+                return;
+            }
+
+            const response = await axios.get(`${API_URL}/user/profile`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             if (response.data.success) {
-                set({ user: response.data.user, isAuthenticated: true });
+                set({ user: response.data.user, isAuthenticated: true, isCheckingUser: false });
             }
         } catch (error) {
-            console.log(error)
             set({ error: error.message });
         }
     },
+    
 }));

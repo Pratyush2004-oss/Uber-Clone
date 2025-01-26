@@ -18,10 +18,12 @@ app.use(cors({
     credentials: true
 }));
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-})
+
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/captain', captainRoute);
+
+app.use((err, req, res, next) => {
+    res.status(500).json({ message: process.env.NODE_ENV === 'production' ? "Internal Server Error" : "Internal Server Error : " + err.message })
+})
 
 export default app;

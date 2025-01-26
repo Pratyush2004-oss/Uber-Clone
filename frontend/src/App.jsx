@@ -6,31 +6,29 @@ import CaptainLogin from './pages/auth/CaptainLogin'
 import CaptainSignup from './pages/auth/CaptainSignup'
 import UserSignup from './pages/auth/UserSignup'
 import Dashboard from './pages/dashboard'
-import { useUserStore } from './store/user.store'
 
 const ProtectRoute = ({ children }) => {
-  const { isAuthenticated, user } = useUserStore();
-  if (!isAuthenticated && !user) {
+  const token = localStorage.getItem("Ubertoken")
+  if (!token) {
     return <Navigate to={'/user/login'} replace />;
   }
   return children;
 }
 
 const RedirectedRoute = ({ children }) => {
-  const { isAuthenticated, user } = useUserStore();
-  if (isAuthenticated && user) {
-    return <Navigate to={'/dashboard'} replace />;
+  const token = localStorage.getItem("Ubertoken")
+  if (token) {
+    return <Navigate to={'/dashboard'} replace />
   }
   return children;
 }
 
 const App = () => {
-  const { user, checkUser, isAuthenticated } = useUserStore();
   useEffect(() => {
-    if (!isAuthenticated && !user) {
-      checkUser();
-    }
-  }, [checkUser])
+    localStorage.getItem("Ubertoken")
+
+  }, [])
+
   return (
     <Routes>
       <Route path='/' element={<Home />} />

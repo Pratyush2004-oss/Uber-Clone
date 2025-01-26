@@ -29,7 +29,7 @@ export const register = async (req, res, next) => {
         });
 
         const token = user.generateAuthToken();
-        res.cookie('token', token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).status(201).json({
+        res.status(200).cookie('Ubertoken', token, { maxAge: 10 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).json({
             success: true,
             user,
             token,
@@ -66,11 +66,11 @@ export const login = async (req, res, next) => {
         }
 
         const token = user.generateAuthToken();
-        res.status(200).cookie('token', token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).json({
+        res.status(200).cookie("Ubertoken", token, { maxAge: 10 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).json({
             success: true,
             user,
             token,
-            message: "User logged in successfully"
+            message: `Welcome back ${user.name.firstName}`
         })
 
     } catch (error) {
@@ -82,7 +82,7 @@ export const login = async (req, res, next) => {
 // profile info controller
 export const profile = async (req, res, next) => {
     try {
-        res.status(200).json({ user: req.user });
+        res.status(200).json({ user: req.user, success: true });
     } catch (error) {
         console.log("Error in profile Controller : " + error.message);
         next(error);

@@ -34,8 +34,7 @@ export const register = async (req, res, next) => {
         });
 
         const token = captain.generateAuthToken();
-        res.cookie('token', token);
-        res.status(201).json({
+        res.cookie('Ubertoken', token, {maxAge: 10 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict'}).status(201).json({
             success: true,
             captain,
             token,
@@ -73,12 +72,11 @@ export const login = async (req, res, next) => {
         }
 
         const token = captain.generateAuthToken();
-        res.cookie('token', token);
-        res.status(200).json({
+        res.cookie('Ubertoken', token, {maxAge: 10 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict'}).status(201).json({
             success: true,
             captain,
             token,
-            message: "Logged in successfully"
+            message: `Welcome back ${captain.name.firstName}`
         })
 
     } catch (error) {

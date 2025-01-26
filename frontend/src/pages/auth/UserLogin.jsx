@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Header from '../../components/Header'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useUserStore } from '../../store/user.store'
 import toast from 'react-hot-toast'
 
@@ -9,6 +9,7 @@ const UserLogin = () => {
     email: '',
     password: ''
   })
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { login } = useUserStore();
 
@@ -17,8 +18,10 @@ const UserLogin = () => {
     try {
       setLoading(true);
       const res = await login(input);
+      console.log(res);
       if (res) {
         toast.success(res.message);
+        navigate('/dashboard');
         setInput({
           email: '',
           password: ''
@@ -49,7 +52,7 @@ const UserLogin = () => {
             <h3 className='font-medium text-xl'>Password</h3>
             <input type='password' value={input.password} onChange={(e) => setInput({ ...input, password: e.target.value })} placeholder='password' required className='input w-full my-2 input-bordered bg-[#eeeeee]' />
           </div>
-          <button disabled={loading || input.password.length < 6} className='btn w-full mt-5 bg-black text-white' type='submit'>{loading ? <span className='loading loading-spinner'></span> : 'Login'} </button>
+          <button disabled={loading} className='btn w-full mt-5 bg-black text-white' type='submit'>{loading ? <span className='loading loading-spinner'></span> : 'Login'} </button>
         </form>
         <p className='text-center'>New Here? <Link to={'/user/signup'} className='underline text-blue-500 font-bold'>Create new account</Link></p>
         <div className="divider">X</div>

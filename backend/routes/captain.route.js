@@ -16,12 +16,11 @@ const RegistrationValidationRule = [
 
 const ValidationRule = [
     body('email').isEmail().withMessage('Email is not valid'),
-    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
 ];
 
 router.post('/register', RegistrationValidationRule, register);
 router.post('/login', ValidationRule, login);
-router.get('/logout',AuthentateCaptain, logout);
+router.get('/logout', AuthentateCaptain, logout);
 router.get('/profile', AuthentateCaptain, profile);
 
 export default router;

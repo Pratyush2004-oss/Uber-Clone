@@ -9,7 +9,7 @@ const captainsSchema = new mongoose.Schema({
             required: true,
             minlength: [3, "First Name must be at least 3-characters long"]
         },
-        LastName: {
+        lastName: {
             type: String,
         },
     },
