@@ -5,7 +5,9 @@ import Home from './pages/Home'
 import CaptainLogin from './pages/auth/CaptainLogin'
 import CaptainSignup from './pages/auth/CaptainSignup'
 import UserSignup from './pages/auth/UserSignup'
-import Dashboard from './pages/dashboard'
+import Dashboard from './pages/Dashboard'
+import { useUserStore } from './store/user.store'
+import { useCaptainStore } from './store/captain.store'
 
 const ProtectRoute = ({ children }) => {
   const token = localStorage.getItem("Ubertoken")
@@ -24,10 +26,25 @@ const RedirectedRoute = ({ children }) => {
 }
 
 const App = () => {
+
+  const { checkUser, isCheckingUser, isAuthenticated } = useUserStore();
+  const { checkCaptain, isCaptainAuthenticated, isCheckingCaptain } = useCaptainStore();
   useEffect(() => {
     localStorage.getItem("Ubertoken")
 
   }, [])
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      checkUser();
+    }
+  }, [checkUser])
+
+  useEffect(() => {
+    if (!isCaptainAuthenticated) {
+      checkCaptain();
+    }
+  }, [checkCaptain])
 
   return (
     <Routes>

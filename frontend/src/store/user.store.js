@@ -84,7 +84,7 @@ export const useUserStore = create((set) => ({
         set({ error: null, isCheckingUser: true, isAuthenticated: false });
         try {
             const token = localStorage.getItem('Ubertoken');
-
+            
             if (!token) {
                 set({ isCheckingUser: false });
                 return;

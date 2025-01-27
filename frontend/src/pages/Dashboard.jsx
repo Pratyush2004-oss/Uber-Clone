@@ -1,9 +1,10 @@
 import React from 'react'
+import Header from '../components/Header'
 
 const Dashboard = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className='p-7'>
+      <Header/>
     </div>
   )
 }
