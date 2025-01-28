@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Header from '../components/Header'
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ArrowRight, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 const Dashboard = () => {
   const [input, setinput] = useState({
     source: '',
