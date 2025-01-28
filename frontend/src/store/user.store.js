@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const API_URL = import.meta.env.VITE_BASE_URL || process.env.VITE_BASE_URL;
 
-export const useUserStore = create((set) => ({
+export const useUserStore = create((set, get) => ({
     user: null,
     isAuthenticated: false,
     error: null,
@@ -26,8 +26,8 @@ export const useUserStore = create((set) => ({
                 toast.error(response.data.message);
             }
         } catch (error) {
-            set({ error: error.message });
-            toast.error(error.message);
+            set({ error: error.response.data.message });
+            toast.error(error.response.data.message);
         }
     },
 
@@ -47,7 +47,6 @@ export const useUserStore = create((set) => ({
                 toast.error(response.data.message);
             }
         } catch (error) {
-            console.log(response)
             set({ error: error.message });
             toast.error(error.response.data.message);
         }
@@ -100,6 +99,9 @@ export const useUserStore = create((set) => ({
             }
         } catch (error) {
             set({ error: error.message });
+        }
+        finally {
+            set({ isCheckingUser: false });
         }
     },
     

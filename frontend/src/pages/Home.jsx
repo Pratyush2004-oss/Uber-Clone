@@ -6,7 +6,7 @@ import Header from '../components/Header'
 const Home = () => {
   return (
     <div className={`bg-[url(/landing.png)] bg-cover bg-no-repeat bg-bottom h-screen pt-8 flex w-full justify-between flex-col`}>
-      <div className='ml-8'>
+      <div className='mx-8'>
         <Header />
       </div>
       <div className='bg-white/50 p-4 pb-7'>

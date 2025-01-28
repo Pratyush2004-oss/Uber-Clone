@@ -88,7 +88,7 @@ export const login = async (req, res, next) => {
 // Captain profile controller
 export const profile = async (req, res, next) => {
     try {
-        res.status(200).json({ captain: req.captain });
+        res.status(200).json({ captain: req.captain, success: true });
     } catch (error) {
         console.log("Error in getting Captain profile Controller : " + error.message);
         next(error);

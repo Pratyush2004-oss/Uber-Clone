@@ -28,7 +28,6 @@ const CaptainLogin = () => {
       }
     } catch (error) {
       console.log(error)
-
     }
     finally {
       setLoading(false);

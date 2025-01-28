@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BASE_URL;
-export const useCaptainStore = create((set) => ({
+export const useCaptainStore = create((set, get) => ({
     captain: null,
     error: null,
     isCaptainAuthenticated: false,
@@ -51,28 +51,6 @@ export const useCaptainStore = create((set) => ({
         }
     },
 
-    // checkin captain
-    checkCaptain: async () => {
-        set({ error: null, isCheckingCaptain: true, isCaptainAuthenticated: false });
-        try {
-            const token = localStorage.getItem('Ubertoken');
-            if (!token) {
-                set({ isCheckingCaptain: false, isCaptainAuthenticated: false });
-                return;
-            }
-            const response = await axios.get(`${API_URL}/captain/profile`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            if (response.data.success) {
-                set({ captain: response.data.captain, isCaptainAuthenticated: true, isCheckingCaptain: false });
-            }
-        } catch (error) {
-            set({ error: error.message });
-        }
-    },
-
     // logout function
     logout: async () => {
         try {
@@ -95,6 +73,31 @@ export const useCaptainStore = create((set) => ({
         } catch (error) {
             set({ error: error.message });
             toast.error(error.message);
+        }
+    },
+    
+    // checkin captain
+    checkCaptain: async () => {
+        set({ error: null, isCheckingCaptain: true, isCaptainAuthenticated: false });
+        try {
+            const token = localStorage.getItem('Ubertoken');
+            if (!token) {
+                set({ isCheckingCaptain: false });
+                return;
+            }
+            const response = await axios.get(`${API_URL}/captain/profile`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if (response.data.success) {
+                set({ captain: response.data.captain, isCaptainAuthenticated: true, isCheckingCaptain: false });
+            }
+        } catch (error) {
+            set({ error: error.message });
+        }
+        finally{
+            set({ isCheckingCaptain: false });
         }
     },
 
