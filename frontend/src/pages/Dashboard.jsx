@@ -6,6 +6,8 @@ import { ChevronDown } from 'lucide-react'
 import LocationSearchPanel from '../components/user/LocationSearchPanel';
 import ChooseVehicle from '../components/user/ChooseVehicle';
 import ConfirmRide from '../components/user/ConfirmRide';
+import LookingForDriver from '../components/user/LookingForDriver';
+import WaitingForDriver from '../components/user/WaitingForDriver';
 const Dashboard = () => {
   const [input, setinput] = useState({
     source: '',
@@ -14,6 +16,8 @@ const Dashboard = () => {
   const [panelOpen, setpanelOpen] = useState(false);
   const [vehiclePanel, setvehiclePanel] = useState(false);
   const [confirmRide, setconfirmRide] = useState(false);
+  const [vehicleFound, setvehicleFound] = useState(false);
+  const [waitForDriver, setwaitForDriver] = useState(true);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -44,6 +48,7 @@ const Dashboard = () => {
     }
   }, [vehiclePanel])
 
+  // animation for confirm Ride panel
   useGSAP(function () {
     if (confirmRide) {
       gsap.to('.confirmRide', { transform: 'translateY(0)', duration: 1 })
@@ -52,6 +57,26 @@ const Dashboard = () => {
       gsap.to('.confirmRide', { transform: 'translateY(100%)', duration: 1 })
     }
   }, [confirmRide])
+
+  useGSAP(function () {
+    if (vehicleFound) {
+      gsap.to('.vehicleFound', { transform: 'translateY(0)', duration: 1 })
+    }
+    else {
+      gsap.to('.vehicleFound', { transform: 'translateY(100%)', duration: 1 })
+    }
+  }, [vehicleFound])
+
+  // animation for wait for Driver Page
+  useGSAP(function () {
+    if (waitForDriver) {
+      gsap.to('.waitForDriver', { transform: 'translateY(0)', duration: 1 })
+    }
+    else {
+      gsap.to('.waitForDriver', { transform: 'translateY(100%)', duration: 1 })
+    }
+  }, [waitForDriver])
+
 
   return (
     <div className='relative h-screen bg-gray-100 overflow-hidden'>
@@ -76,13 +101,20 @@ const Dashboard = () => {
           </div>
           <div className='fixed w-full z-10 bottom-0 left-0 bg-gray-100 p-2 translate-y-full vehiclePanel'>
             <h1 className='text-2xl font-semibold flex items-center justify-between mx-3 '>Choose a vehicle <ChevronDown onClick={() => setvehiclePanel(false)} className='size-5' /></h1>
-            <ChooseVehicle image={"/car.png"} capacity={4} price={150.25} name={"Uber Go"} setconfirmRide={setconfirmRide} />
-            <ChooseVehicle image={"/bike.png"} capacity={1} price={65.47} name={"Uber Bike"} setconfirmRide={setconfirmRide} />
-            <ChooseVehicle image={"/auto.png"} capacity={3} price={110.1} name={"Uber Auto"} setconfirmRide={setconfirmRide} />
+            <ChooseVehicle image={"/car.png"} capacity={4} price={150.25} name={"Uber Go"} setconfirmRide={setconfirmRide} setvehiclePanel={setvehiclePanel} />
+            <ChooseVehicle image={"/bike.png"} capacity={1} price={65.47} name={"Uber Bike"} setconfirmRide={setconfirmRide} setvehiclePanel={setvehiclePanel} />
+            <ChooseVehicle image={"/auto.png"} capacity={3} price={110.1} name={"Uber Auto"} setconfirmRide={setconfirmRide} setvehiclePanel={setvehiclePanel} />
           </div>
           <div className='fixed w-full z-10 bottom-0 left-0 bg-gray-100 p-2 translate-y-full confirmRide'>
-            <ConfirmRide />
+            <ConfirmRide image={"/car.png"} capacity={4} price={150.25} name={"Uber Go"} setconfirmRide={setconfirmRide} setvehicleFound={setvehicleFound} />
           </div>
+          <div className='fixed w-full z-10 bottom-0 left-0 bg-gray-100 p-2 translate-y-full vehicleFound'>
+            <LookingForDriver setvehicleFound={setvehicleFound} />
+          </div>
+          <div className='fixed w-full bottom-0 left-0 bg-gray-100 p-2 translate-y-full waitForDriver z-50'>
+          <WaitingForDriver />
+          </div>
+
         </div>
       </div>
     </div>
