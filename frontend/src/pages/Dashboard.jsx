@@ -17,7 +17,7 @@ const Dashboard = () => {
   const [vehiclePanel, setvehiclePanel] = useState(false);
   const [confirmRide, setconfirmRide] = useState(false);
   const [vehicleFound, setvehicleFound] = useState(false);
-  const [waitForDriver, setwaitForDriver] = useState(true);
+  const [waitForDriver, setwaitForDriver] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
