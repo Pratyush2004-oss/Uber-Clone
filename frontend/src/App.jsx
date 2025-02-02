@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard'
 import { useUserStore } from './store/user.store'
 import { useCaptainStore } from './store/captain.store'
 import Loading from './components/Loading'
+import Riding from './pages/Riding'
 
 const ProtectRoute = ({ children }) => {
   const token = localStorage.getItem("Ubertoken")
@@ -33,13 +34,13 @@ const App = () => {
     localStorage.getItem("Ubertoken")
   }, [])
 
-  
+
   useEffect(() => {
     if (!isCaptainAuthenticated) {
       checkCaptain();
     }
   }, [checkCaptain])
-  
+
   useEffect(() => {
     if (!isAuthenticated) {
       checkUser();
@@ -56,6 +57,11 @@ const App = () => {
       <Route path='/dashboard' element={
         <ProtectRoute>
           <Dashboard />
+        </ProtectRoute>
+      } />
+      <Route path='/dashboard/riding' element={
+        <ProtectRoute>
+          <Riding />
         </ProtectRoute>
       } />
       <Route path='/user/login' element={

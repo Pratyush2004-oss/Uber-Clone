@@ -112,7 +112,7 @@ const Dashboard = () => {
             <LookingForDriver setvehicleFound={setvehicleFound} />
           </div>
           <div className='fixed w-full bottom-0 left-0 bg-gray-100 p-2 translate-y-full waitForDriver z-50'>
-          <WaitingForDriver />
+            <WaitingForDriver />
           </div>
 
         </div>
