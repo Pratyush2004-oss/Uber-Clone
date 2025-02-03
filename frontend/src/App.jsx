@@ -5,11 +5,11 @@ import Home from './pages/Home'
 import CaptainLogin from './pages/auth/CaptainLogin'
 import CaptainSignup from './pages/auth/CaptainSignup'
 import UserSignup from './pages/auth/UserSignup'
-import Dashboard from './pages/Dashboard'
 import { useUserStore } from './store/user.store'
 import { useCaptainStore } from './store/captain.store'
 import Loading from './components/Loading'
 import Riding from './pages/Riding'
+import AuthenticatedHome from './pages/AuthenticatedHome'
 
 const ProtectRoute = ({ children }) => {
   const token = localStorage.getItem("Ubertoken")
@@ -56,7 +56,7 @@ const App = () => {
       <Route path='/' element={<Home />} />
       <Route path='/dashboard' element={
         <ProtectRoute>
-          <Dashboard />
+          <AuthenticatedHome />
         </ProtectRoute>
       } />
       <Route path='/dashboard/riding' element={
