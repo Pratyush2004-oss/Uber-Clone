@@ -1,9 +1,46 @@
 import React, { useState } from 'react'
 import { ChevronDown, CreditCard, IndianRupee, LocateIcon, MapPin } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const ConfirmRidePopUp = (props) => {
-    const [otp, setOtp] = useState(["", "", "", "", "", ""])
+    const [otp, setOtp] = useState(new Array(6).fill(''));
+    const [code, setcode] = useState("")
+    const navigate = useNavigate();
+
+    const handleChange = (element, index) => {
+        // get the input value 
+        const value = element.value;
+        if (!value) return;
+
+        const newOTP = [...otp];
+
+        newOTP[index] = value;
+        setOtp(newOTP);
+        // moves focus to next input field if value is entered
+        if (index < 5 && value) {
+            element.nextSibling.focus();
+        }
+
+        setcode(newOTP.join(''));
+    }
+
+    // handle function by clicking the backspace button
+    const handleBackSpace = (element, index) => {
+        // clear the current input field
+        const newOTP = [...otp];
+        newOTP[index] = '';
+        setOtp(newOTP);
+
+        // move focus to previous input
+        if (index > 0) {
+            element.previousSibling.focus();
+        }
+    }
+
+    const handleSubmit = () => {
+        console.log(code);
+        navigate('/dashboard/riding-captain');
+    }
     return (
         <div className='flex flex-col gap-1 p-5 shadow-lg mx-3 bg-gray-50 border-2 active:border-black rounded-lg my-2'>
             <div className='text-2xl text-center flex items-center justify-center'><ChevronDown className='size-6' onClick={() => { props.setconfirmRide(false) }} /></div>
@@ -49,16 +86,21 @@ const ConfirmRidePopUp = (props) => {
                 <h1 className='text-xl font-semibold'>Enter OTP</h1>
                 <div className='grid grid-cols-6 gap-2'>
                     {
-                        otp.map((item, index) => (
-                            <input key={index} type='number' min={0} max={9} className='input bg-gray-200 text-xl font-semibold input-bordered border-2 border-gray-400 w-full' maxLength={1} onChange={() => setOtp([...otp.slice(0, index), item, ...otp.slice(index + 1)])} />
-                        ))
+                        otp.map((data, index) => {
+                            return (
+                                <input key={index} type='text' value={data} className='input bg-gray-200 text-xl font-semibold input-bordered border-2 border-gray-400 w-full focus:input-warning' maxLength={1} onChange={(e) => handleChange(e.target, index)} onKeyDown={(e) => {
+                                    if (e.key === 'Backspace') {
+                                        handleBackSpace(e.target, index)
+                                    }
+                                }} />
+                            )
+                        })
                     }
                 </div>
             </div>
-            <Link to={'/dashboard/riding-captain'} className='btn font-semibold w-full mt-5 bg-green-500 text-white'>Confirm</Link>
+            <button className='btn font-semibold w-full mt-5 bg-green-500 text-white' onClick={handleSubmit}>Confirm</button>
             <button className='btn w-full mt-2 bg-red-600 text-white font-semibold' onClick={() => {
                 props.setconfirmRide(false)
-                console.log(otp);
             }}>Cancel</button>
         </div>
     )
