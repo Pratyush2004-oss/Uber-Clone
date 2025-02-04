@@ -1,7 +1,7 @@
-import { ChevronDown, CreditCard, IndianRupee, LocateIcon, MapPin } from 'lucide-react'
 import React from 'react'
+import { ChevronDown, CreditCard, IndianRupee, LocateIcon, MapPin } from 'lucide-react'
 
-const RidePopUp = (props) => {
+const ConfirmRidePopUp = (props) => {
     return (
         <div className='flex flex-col justify-between gap-1 p-5 shadow-lg mx-3 bg-gray-50 border-2 active:border-black rounded-lg my-2'>
             <div className='text-2xl text-center flex items-center justify-center'><ChevronDown className='size-6' onClick={() => { props.setridePopUp(false) }} /></div>
@@ -53,4 +53,4 @@ const RidePopUp = (props) => {
     )
 }
 
-export default RidePopUp
+export default ConfirmRidePopUp
