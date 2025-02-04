@@ -43,12 +43,13 @@ const RidePopUp = (props) => {
                     </div>
                 </div>
             </div>
-            <button onClick={() => {
-                props.setridePopUp(false);
-                props.setconfirmRide(true);
-            }
-            } className='btn w-full mt-5 bg-green-500 text-white'>Confirm</button>
-            <button className='btn w-full mt-2 bg-gray-300 text-black' onClick={() => props.setridePopUp(false)}>Ignore</button>
+            <div className='grid grid-cols-2 gap-3 items-center mt-3'>
+                <button className='btn w-full bg-gray-300 text-black' onClick={() => props.setridePopUp(false)}>Ignore</button>
+                <button onClick={() => {
+                    props.setridePopUp(false);
+                    props.setconfirmRide(true);
+                }} className='btn w-full bg-green-500 text-white'>Accept</button>
+            </div>
         </div>
     )
 }
