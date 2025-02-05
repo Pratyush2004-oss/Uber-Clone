@@ -1,12 +1,13 @@
-import { ChevronDown, CreditCard, IndianRupee, LocateIcon, MapPin } from 'lucide-react'
 import React from 'react'
+import { ChevronDown, CreditCard, IndianRupee, LocateIcon, MapPin } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
-const RidePopUp = (props) => {
+const FinishRidePopUp = (props) => {
     return (
-        <div className='flex flex-col justify-between gap-1 p-5 shadow-lg mx-3 bg-gray-50 border-2 active:border-black rounded-lg my-2'>
-            <div className='text-2xl text-center flex items-center justify-center'><ChevronDown className='size-6' onClick={() => { props.setridePopUp(false) }} /></div>
-            <h3 className='text-xl font-semibold  mb-5'>New Ride Available!</h3>
-            <div className='flex items-center justify-between mb-2 bg-yellow-400 p-3 rounded-lg'>
+        <div className='flex flex-col gap-1 p-5 shadow-lg mx-3 bg-gray-50 border-2 active:border-black rounded-lg my-2'>
+            <div className='text-2xl text-center flex items-center justify-center'><ChevronDown className='size-6' onClick={() => { props.setfinishRidePanel(false) }} /></div>
+            <h3 className='text-2xl font-semibold mb-5'>Finish this Ride</h3>
+            <div className='flex items-center justify-between mb-2 border-2 border-yellow-400 p-3 rounded-lg'>
                 <div className='flex items-center gap-3'>
                     <div className="avatar ">
                         <div className="w-10 rounded-full shadow-lg">
@@ -42,16 +43,11 @@ const RidePopUp = (props) => {
                         <p className='text-sm text-gray-600 font-medium'>Cash / UPI</p>
                     </div>
                 </div>
+
             </div>
-            <div className='grid grid-cols-2 gap-3 items-center mt-3'>
-                <button className='btn w-full bg-gray-300 text-black' onClick={() => props.setridePopUp(false)}>Ignore</button>
-                <button onClick={() => {
-                    props.setridePopUp(false);
-                    props.setconfirmRide(true);
-                }} className='btn w-full bg-green-500 text-white'>Accept</button>
-            </div>
-        </div>
-    )
+            <Link to={'/dashboard'} className='btn font-semibold w-full mt-5 bg-green-500 text-white'>Finish Ride</Link>
+            <p className='text-sm mt-5 '>Click on <strong>Finish Ride</strong> if you have done the payment</p>
+        </div>)
 }
 
-export default RidePopUp
+export default FinishRidePopUp

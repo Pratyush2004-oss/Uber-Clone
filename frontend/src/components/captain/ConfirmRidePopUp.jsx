@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ChevronDown, CreditCard, IndianRupee, LocateIcon, MapPin } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const ConfirmRidePopUp = (props) => {
     const [otp, setOtp] = useState(new Array(6).fill(''));
@@ -44,12 +44,12 @@ const ConfirmRidePopUp = (props) => {
     return (
         <div className='flex flex-col gap-1 p-5 shadow-lg mx-3 bg-gray-50 border-2 active:border-black rounded-lg my-2'>
             <div className='text-2xl text-center flex items-center justify-center'><ChevronDown className='size-6' onClick={() => { props.setconfirmRide(false) }} /></div>
-            <h3 className='text-xl font-semibold  mb-5'>Confirm this ride to start</h3>
-            <div className='flex items-center justify-between mb-2 bg-yellow-400 p-3 rounded-lg'>
+            <h3 className='text-2xl font-semibold  mb-5'>Confirm this ride to start</h3>
+            <div className='flex items-center justify-between mb-2 border-yellow-300 p-3 rounded-lg border-2'>
                 <div className='flex items-center gap-3'>
                     <div className="avatar ">
                         <div className="w-10 rounded-full shadow-lg">
-                            <img src='userIcon.jpg' />
+                            <img src='/userIcon.jpg' />
                         </div>
                     </div>
                     <h2 className='text-2xl font-semibold'>Harsh Patel</h2>
@@ -98,8 +98,8 @@ const ConfirmRidePopUp = (props) => {
                     }
                 </div>
             </div>
-            <button className='btn font-semibold w-full mt-5 bg-green-500 text-white' onClick={handleSubmit}>Confirm</button>
-            <button className='btn w-full mt-2 bg-red-600 text-white font-semibold' onClick={() => {
+            <button className='btn font-semibold w-full mt-5 bg-green-500 text-white text-lg' onClick={handleSubmit}>Confirm</button>
+            <button className='btn w-full mt-2 bg-red-600 text-white font-semibold text-lg' onClick={() => {
                 props.setconfirmRide(false)
             }}>Cancel</button>
         </div>
