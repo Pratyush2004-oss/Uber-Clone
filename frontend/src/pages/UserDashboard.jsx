@@ -58,6 +58,7 @@ const Dashboard = () => {
     }
   }, [confirmRide])
 
+  // animation for vehicle found
   useGSAP(function () {
     if (vehicleFound) {
       gsap.to('.vehicleFound', { transform: 'translateY(0)', duration: 1 })
