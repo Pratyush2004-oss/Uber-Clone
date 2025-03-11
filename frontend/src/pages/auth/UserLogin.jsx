@@ -18,7 +18,6 @@ const UserLogin = () => {
     try {
       setLoading(true);
       const res = await login(input);
-      console.log(res);
       if (res) {
         toast.success(res.message);
         navigate('/dashboard');
